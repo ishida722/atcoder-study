@@ -1,36 +1,11 @@
-A, B, W = map(int, input().split())
+A, B ,W = map(int, input().split())
 
-W = W * 1000
+m = 1e9
+M = 0
 
-n = 0
+for n in range(1, 1000001):
+    if A*n<=1000*W and 1000*W<=B*n:
+        m = min(m, n)
+        M = max(M, n)
 
-def search_min():
-    for a in range(A, B+1):
-        current_W = W
-        n, current_W = divmod(current_W, a)
-        for b in range(a+1, B+1):
-            if current_W < b:
-                break
-            nn, current_W = divmod(current_W, b)
-            n += nn
-            if current_W == 0:
-                return n
-    return -1
-
-def search_max():
-    for a in range(B, A, -1):
-        current_W = W
-        n, current_W = divmod(current_W, a)
-        for b in range(a, A, -1):
-            if current_W < b:
-                break
-            nn, current_W = divmod(current_W, b)
-            n += nn
-            if current_W == 0:
-                return n
-    return -1
-    
-min_n = search_min()
-max_n = search_max()
-
-print(min_n, max_n)
+print('UNSATISFIABLE' if M==0 else f'{m} {M}')
